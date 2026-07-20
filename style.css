@@ -1,0 +1,731 @@
+ /* ==========================================================
+   FONT — GFF (custom heading font)
+========================================================== */
+@font-face {
+    font-family: "GFF";
+    src: url("./assets/GFF-Latin-Medium.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+/* ==========================================================
+   HTML / BODY — prevents horizontal scroll jo footer/bg
+   layout todh sakta hai agar koi element overflow kare
+========================================================== */
+html, body{
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* ==========================================================
+   BACKGROUND SECTION (MOBILE — base/default)
+   position: relative rakha hai taaki future mein iske andar
+   koi bhi element (logo, button, text) absolute position ho
+   to ye khud kabhi move nahi hoga — sirf uske andar wala
+   element move hoga.
+========================================================== */
+.hero-bg{
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+    height: 100svh; /* real mobile viewport height */
+
+    background-image: url("./assets/Background-img.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    /* ↓↓ YAHI LINE SE TU IMAGE KO IDHAR-UDHAR/UPAR-NICHE ADJUST KAREGA ↓↓ */
+    background-position: center center;
+    /* examples:
+       left center   → image left se dikhegi
+       right center  → image right se dikhegi
+       center top    → image upar se dikhegi
+       50% 30%       → precise % control (left% top%)
+    */
+}
+
+/* ==========================================================
+   FOOTER (MOBILE — base/default)
+   width 100% rakha hai (100vw nahi) — 100vw kabhi kabhi
+   scrollbar ki wajah se layout todh deta hai, 100% safe hai.
+========================================================== */
+.site-footer{
+    width: 100%;
+    min-height: 80px; /* ↓↓ ISSE ADJUST KAREGA FOOTER KI HEIGHT ↓↓ */
+
+    background-color: #000;
+}
+
+/* ==========================================================
+   MOBILE-ONLY background position override
+   Character ko frame mein sahi dikhane ke liye — sirf mobile
+   pe left-right sarkate hain, desktop wala rule upar untouched.
+========================================================== */
+@media (max-width: 768px){
+
+    .hero-bg{
+        /* ↓↓ ISI VALUE SE IDHAR-UDHAR SARKANA HAI ↓↓
+           left% neeche jitna karega utna image LEFT ki taraf khisकेगी
+           value jitna badhaoge utna image RIGHT ki taraf khisकेगी
+           range: 0% (full left) se 100% (full right) */
+        background-position: 20% center;
+    }
+
+}
+
+/* ==========================================================
+   NAVBAR (MOBILE — base/default)
+   Sab values CSS variables se control hoti hain — neeche
+   :root mein badlo, poora navbar adjust ho jayega. Kisi bhi
+   rule ke andar hardcoded number dhoondhne ki zaroorat nahi.
+========================================================== */
+:root{
+    /* ↓↓ NAVBAR POSITION (top se kitni door, side se kitni door) ↓↓ */
+    --nav-top: 16px;
+    --nav-side: 80px;
+
+    /* ↓↓ LOGO SIZE ↓↓ */
+    --logo-height: 32px;
+
+    /* ↓↓ STORE BUTTON SIZE ↓↓ */
+    --store-btn-height: 36px;
+    --store-btn-padding-x: 14px;
+    --store-icon-size: 16px;
+    --store-font-size: 13px;
+
+    /* ↓↓ LOGO aur STORE BUTTON ke beech ka gap ↓↓ */
+    --nav-gap: 12px;
+}
+
+.navbar{
+    position: absolute;
+    top: var(--nav-top);
+    left: var(--nav-side);
+    right: var(--nav-side);
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* logo left, store button right */
+    gap: var(--nav-gap);
+}
+
+.nav-logo{
+    height: var(--logo-height);
+    width: auto;
+    display: block;
+}
+
+.store-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    height: var(--store-btn-height);
+    padding: 0 var(--store-btn-padding-x);
+
+    background-color: #fff;
+    border: none;
+    border-radius: 999px; /* pill shape */
+
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.store-btn i{
+    font-size: var(--store-icon-size);
+    color: #111;
+}
+
+.store-btn span{
+    font-size: var(--store-font-size);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #111;
+}
+
+.store-btn:hover{
+    transform: scale(1.05);
+}
+
+/* ==========================================================
+   MOBILE-ONLY NAVBAR ADJUSTMENTS
+   Yahan values overwrite karo — sirf mobile affect hoga,
+   desktop ka :root wala base untouched rahega.
+========================================================== */
+@media (max-width: 768px){
+
+    .navbar{
+        top: 16px;   /* ↓↓ upar-niche adjust ↓↓ */
+        left: 16px;  /* ↓↓ left side gap adjust ↓↓ */
+        right: 16px; /* ↓↓ right side gap adjust ↓↓ */
+        gap: 12px;   /* ↓↓ logo aur store button ke beech gap ↓↓ */
+    }
+
+    .nav-logo{
+        height: 28px; /* ↓↓ logo size adjust ↓↓ */
+    }
+
+    .store-btn{
+        height: 34px;         /* ↓↓ button height ↓↓ */
+        padding: 0 12px;      /* ↓↓ button left-right padding ↓↓ */
+    }
+
+    .store-btn i{
+        font-size: 14px; /* ↓↓ icon size ↓↓ */
+    }
+
+    .store-btn span{
+        font-size: 12px; /* ↓↓ text size ↓↓ */
+    }
+
+}
+
+/* ==========================================================
+   HERO TITLE (MOBILE — base/default)
+   position: absolute rakha hai .hero-bg ke andar (jo relative
+   hai), isliye variables se kahin bhi rakh sakte ho, layout
+   nahi tootega. Mobile pe white color, center-aligned.
+========================================================== */
+:root{
+    /* ↓↓ HERO TITLE POSITION (MOBILE) ↓↓ */
+    --title-top-mob: 200px;
+    --title-left-mob: 50%;
+
+    /* ↓↓ HERO TITLE SIZE (MOBILE) ↓↓ */
+    --title-size-mob: 19px;
+    --title-letter-spacing-mob: 1px;
+
+    /* ↓↓ HERO TITLE POSITION (DESKTOP) ↓↓ */
+    --title-top-desk: 50px;
+    --title-right-desk: 260px;
+
+    /* ↓↓ HERO TITLE SIZE (DESKTOP) ↓↓ */
+    --title-size-desk: 25px;
+    --title-letter-spacing-desk: 2px;
+}
+
+.hero-title{
+    position: absolute;
+
+    font-family: "GFF", sans-serif;
+    line-height: 1.15;
+    text-align: center;
+
+    /* MOBILE — default values (base, no media query needed) */
+    top: var(--title-top-mob);
+    left: var(--title-left-mob);
+    transform: translateX(-50%); /* left:50% ke saath center karta hai */
+
+    font-size: var(--title-size-mob);
+    font-weight: 900;
+    letter-spacing: var(--title-letter-spacing-mob);
+
+    width: 85%; /* narrow screens pe wrap sahi se ho */
+
+    color: #fff; /* MOBILE — white */
+   
+}
+
+/* ==========================================================
+   HERO TITLE — DESKTOP OVERRIDE
+   min-width:769px se upar ye rules chalenge, mobile ka base
+   yahan overwrite ho jayega.
+========================================================== */
+@media (min-width: 769px){
+
+    .hero-title{
+        top: var(--title-top-desk);
+        left: auto;
+        right: var(--title-right-desk);
+        transform: none; /* mobile ka center-transform hata diya */
+
+        font-size: var(--title-size-desk);
+        letter-spacing: var(--title-letter-spacing-desk);
+
+        width: auto;
+
+        color: #111; /* DESKTOP — black */
+
+    }
+
+}
+
+/* ==========================================================
+   HERO SUBTITLE (MOBILE — base/default)
+   Same pattern as .hero-title — independent variables so
+   position/size/color mobile aur desktop dono pe alag-alag
+   control ho sake.
+========================================================== */
+:root{
+    /* ↓↓ SUBTITLE POSITION (MOBILE) ↓↓ */
+    --subtitle-top-mob: 240px;
+    --subtitle-left-mob: 50%;
+
+    /* ↓↓ SUBTITLE SIZE (MOBILE) ↓↓ */
+    --subtitle-size-mob: 14px;
+    --subtitle-letter-spacing-mob: 1px;
+
+    /* ↓↓ SUBTITLE POSITION (DESKTOP) ↓↓ */
+    --subtitle-top-desk: 95px;
+    --subtitle-right-desk: 585px;
+
+    /* ↓↓ SUBTITLE SIZE (DESKTOP) ↓↓ */
+    --subtitle-size-desk: 16px;
+    --subtitle-letter-spacing-desk: 1px;
+}
+
+.hero-subtitle{
+    position: absolute;
+
+    font-family: "GFF", sans-serif;
+    line-height: 1.2;
+    text-align: center;
+
+    /* MOBILE — default values (base, no media query needed) */
+    top: var(--subtitle-top-mob);
+    left: var(--subtitle-left-mob);
+    transform: translateX(-50%);
+
+    font-size: var(--subtitle-size-mob);
+    
+    letter-spacing: var(--subtitle-letter-spacing-mob);
+
+    width: 85%;
+
+    /* ↓↓ "LOW WHITE" — halka safed, alpha value se adjust ↓↓
+       0 = fully transparent, 1 = fully solid white */
+    color: rgba(255, 255, 255, 1);
+}
+
+/* ==========================================================
+   HERO SUBTITLE — DESKTOP OVERRIDE
+========================================================== */
+@media (min-width: 769px){
+
+    .hero-subtitle{
+        top: var(--subtitle-top-desk);
+        left: auto;
+        right: var(--subtitle-right-desk);
+        transform: none;
+
+        font-size: var(--subtitle-size-desk);
+        letter-spacing: var(--subtitle-letter-spacing-desk);
+
+        width: auto;
+
+        /* ↓↓ "LOW BLACK" — halka kaala, alpha value se adjust ↓↓ */
+        color: rgba(17, 17, 17, 0.95);
+    }
+
+}
+
+
+/* ==========================================================
+   TRUSTED PLATFORM ICONS (MOBILE — base/default)
+   Same pattern — independent variables for position/size,
+   dono screens pe alag control. flex + gap se icons spaced
+   rehte hain, kabhi overlap nahi honge.
+========================================================== */
+:root{
+    /* ↓↓ ICONS POSITION (MOBILE) ↓↓ */
+    --icons-top-mob: 290px;
+    --icons-left-mob: 50%;
+
+    /* ↓↓ ICON SIZE + GAP (MOBILE) ↓↓ */
+    --icon-size-mob: 50px;
+    --icons-gap-mob: 14px;
+
+    /* ↓↓ ICONS POSITION (DESKTOP) ↓↓ */
+    --icons-top-desk: 170px;
+    --icons-right-desk: 240px;
+
+    /* ↓↓ ICON SIZE + GAP (DESKTOP) ↓↓ */
+    --icon-size-desk: 55px;
+    --icons-gap-desk: 18px;
+}
+
+.trusted-platforms{
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+
+    /* MOBILE — default values (base, no media query needed) */
+    top: var(--icons-top-mob);
+    left: var(--icons-left-mob);
+    transform: translateX(-50%);
+
+    gap: var(--icons-gap-mob);
+}
+
+.trusted-platforms img{
+    width: var(--icon-size-mob);
+    height: var(--icon-size-mob);
+    object-fit: contain;
+
+    display: block;
+}
+
+/* ==========================================================
+   TRUSTED PLATFORM ICONS — DESKTOP OVERRIDE
+   Hover pe halka fade + shadow — sirf desktop pe (mobile pe
+   touch devices ke liye hover meaningless hota hai).
+========================================================== */
+@media (min-width: 769px){
+
+    .trusted-platforms{
+        top: var(--icons-top-desk);
+        left: auto;
+        right: var(--icons-right-desk);
+        transform: none;
+
+        gap: var(--icons-gap-desk);
+    }
+
+    .trusted-platforms img{
+        width: var(--icon-size-desk);
+        height: var(--icon-size-desk);
+
+        cursor: pointer;
+        transition: opacity 0.25s ease, filter 0.25s ease;
+    }
+
+    .trusted-platforms img:hover{
+        opacity: 0.75; /* ↓↓ halka fade — kam karega to zyada fade dikhega ↓↓ */
+        filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3)); /* ↓↓ hover shadow ↓↓ */
+    }
+
+}
+
+/* ==========================================================
+   IMPORTANT NOTICE (MOBILE — base/default)
+   White box, adjustable transparency + blur, adjustable
+   position/size. Heading black, points "low black" (alpha
+   se control). Desktop mein box hata denge, position shift
+   karenge, aur points ka color darker rakhenge.
+========================================================== */
+:root{
+    /* ↓↓ NOTICE BOX POSITION (MOBILE) ↓↓ */
+    --notice-top-mob: 380px;
+    --notice-left-mob: 50%;
+    --notice-width-mob: 88%;
+
+    /* ↓↓ NOTICE BOX LOOK (MOBILE) — background transparency + blur ↓↓ */
+    --notice-bg-alpha-mob: 0.75;   /* 0 = fully transparent, 1 = fully solid white */
+    --notice-blur-mob: 1px;        /* 0 = koi blur nahi */
+    --notice-radius-mob: 14px;
+    --notice-padding-mob: 16px;
+
+    /* ↓↓ NOTICE TEXT SIZE (MOBILE) ↓↓ */
+    --notice-heading-size-mob: 15px;
+    --notice-text-size-mob: 12px;
+    --notice-line-gap-mob: 8px;
+
+    /* ↓↓ NOTICE POINTS COLOR (MOBILE) — "low black" ↓↓ */
+    --notice-text-alpha-mob: 0.6;
+
+    /* ↓↓ NOTICE POSITION (DESKTOP) — icons ke niche shift ↓↓ */
+    --notice-top-desk: 290px;
+    --notice-right-desk: 300px;
+    --notice-width-desk: 320px;
+
+    /* ↓↓ NOTICE TEXT SIZE (DESKTOP) ↓↓ */
+    --notice-heading-size-desk: 20px;
+    --notice-text-size-desk: 15px;
+    --notice-line-gap-desk: 8px;
+
+    /* ↓↓ NOTICE POINTS COLOR (DESKTOP) — mobile se zyada dark ↓↓ */
+    --notice-text-alpha-desk: 1;
+}
+
+.notice-box{
+    position: absolute;
+
+    /* MOBILE — default values (base, no media query needed) */
+    top: var(--notice-top-mob);
+    left: var(--notice-left-mob);
+    transform: translateX(-50%);
+
+    width: var(--notice-width-mob);
+
+    background-color: rgba(255, 255, 255, var(--notice-bg-alpha-mob));
+    backdrop-filter: blur(var(--notice-blur-mob));
+    -webkit-backdrop-filter: blur(var(--notice-blur-mob));
+
+    border-radius: var(--notice-radius-mob);
+    padding: var(--notice-padding-mob);
+}
+
+.notice-heading{
+    font-size: var(--notice-heading-size-mob);
+    font-weight: 700;
+    color: #111; /* heading — solid black */
+
+    margin-bottom: 10px;
+}
+
+.notice-list{
+    list-style: none;
+}
+
+.notice-list li{
+    font-size: var(--notice-text-size-mob);
+    line-height: 1.4;
+
+    color: rgba(17, 17, 17, var(--notice-text-alpha-mob)); /* low black */
+
+    margin-bottom: var(--notice-line-gap-mob);
+}
+
+.notice-list li:last-child{
+    margin-bottom: 0;
+}
+
+.highlight{
+    color: #d61f1f; /* red highlight for important words */
+    font-weight: 700;
+}
+
+/* ==========================================================
+   IMPORTANT NOTICE — DESKTOP OVERRIDE
+   Koi white box nahi, position icons ke niche shift, text
+   thoda zyada dark (mobile ke "low black" se zyada solid).
+========================================================== */
+@media (min-width: 769px){
+
+    .notice-box{
+        top: var(--notice-top-desk);
+        left: auto;
+        right: var(--notice-right-desk);
+        transform: none;
+
+        width: var(--notice-width-desk);
+
+        background-color: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .notice-heading{
+        font-size: var(--notice-heading-size-desk);
+    }
+
+    .notice-list li{
+        font-size: var(--notice-text-size-desk);
+
+        color: rgba(17, 17, 17, var(--notice-text-alpha-desk));
+
+        margin-bottom: var(--notice-line-gap-desk);
+    }
+
+}
+
+/* ==========================================================
+   FOOTER CONTENT (MOBILE — base/default)
+   Mobile pe sab stacked/centered, desktop pe left-right split
+   (copyright+links left, lang+logo right). Text "low white"
+   — alpha se control hota hai.
+========================================================== */
+:root{
+    /* ↓↓ FOOTER TEXT SIZE (MOBILE) ↓↓ */
+    --footer-text-size-mob: 11px;
+    --footer-gap-mob: 10px;
+    --footer-padding-mob: 20px 16px;
+
+    /* ↓↓ FOOTER "LOW WHITE" COLOR ↓↓ */
+    --footer-text-alpha: 0.55;
+
+    /* ↓↓ FLAG SIZE (MOBILE) ↓↓ */
+    --flag-size-mob: 16px;
+
+    /* ↓↓ FOOTER LOGO SIZE (MOBILE) ↓↓ */
+    --footer-logo-height-mob: 26px;
+
+    /* ↓↓ FOOTER TEXT SIZE (DESKTOP) ↓↓ */
+    --footer-text-size-desk: 13px;
+    --footer-padding-desk: 20px 60px;
+
+    /* ↓↓ FLAG SIZE (DESKTOP) ↓↓ */
+    --flag-size-desk: 20px;
+
+    /* ↓↓ FOOTER LOGO SIZE (DESKTOP) ↓↓ */
+    --footer-logo-height-desk: 32px;
+}
+
+.site-footer{
+    display: flex;
+    flex-direction: column; /* MOBILE — stacked */
+    align-items: center;
+    justify-content: center;
+    gap: var(--footer-gap-mob);
+
+    padding: var(--footer-padding-mob);
+
+    text-align: center;
+}
+
+.footer-left,
+.footer-right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-copyright{
+    font-size: var(--footer-text-size-mob);
+    color: rgba(255, 255, 255, var(--footer-text-alpha)); /* low white */
+}
+
+.footer-links{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.footer-links a{
+    font-size: var(--footer-text-size-mob);
+    color: rgba(255, 255, 255, var(--footer-text-alpha));
+    text-decoration: none;
+}
+
+.footer-links a:hover{
+    text-decoration: underline;
+}
+
+.footer-divider{
+    font-size: var(--footer-text-size-mob);
+    color: rgba(255, 255, 255, var(--footer-text-alpha));
+}
+
+.footer-lang{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.footer-lang i{
+    font-size: var(--footer-text-size-mob);
+    color: rgba(255, 255, 255, var(--footer-text-alpha));
+}
+
+.footer-lang span{
+    font-size: var(--footer-text-size-mob);
+    color: rgba(255, 255, 255, var(--footer-text-alpha));
+    font-weight: 600;
+}
+
+.footer-lang .fi{
+    width: var(--flag-size-mob);
+    height: var(--flag-size-mob);
+    border-radius: 2px;
+
+    background-size: cover; /* flag-icons library ye khud handle karti hai, safety ke liye */
+}
+
+.footer-logo{
+    height: var(--footer-logo-height-mob);
+    width: auto;
+    display: block;
+}
+
+/* ==========================================================
+   FOOTER — DESKTOP OVERRIDE
+   Left-right split: copyright+links left, lang+logo right.
+========================================================== */
+@media (min-width: 769px){
+
+    .site-footer{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: var(--footer-padding-desk);
+    }
+
+    .footer-left{
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .footer-right{
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .footer-copyright,
+    .footer-links a,
+    .footer-divider,
+    .footer-lang i,
+    .footer-lang span{
+        font-size: var(--footer-text-size-desk);
+    }
+
+   .footer-lang .fi{
+        width: var(--flag-size-desk);
+        height: var(--flag-size-desk);
+    }
+
+    .footer-logo{
+        height: var(--footer-logo-height-desk);
+    }
+
+}
+/* ==========================================================
+   FOOTER SCHOLARSHIP LOGO (MOBILE — base/default)
+   position: relative rakha hai — layout kabhi nahi tootega,
+   top/left offsets se sirf halka nudge/adjust hoga apni
+   jagah se. Size aur position dono screens ke liye independent.
+========================================================== */
+:root{
+    /* ↓↓ LOGO SIZE (MOBILE) ↓↓ */
+    --sch-logo-height-mob: 50px;
+
+    /* ↓↓ LOGO NUDGE POSITION (MOBILE) — upar/niche, left/right ↓↓ */
+    --sch-logo-top-mob: 0px;
+    --sch-logo-left-mob: 0px;
+
+    /* ↓↓ LOGO SIZE (DESKTOP) ↓↓ */
+    --sch-logo-height-desk: 80px;
+
+    /* ↓↓ LOGO NUDGE POSITION (DESKTOP) ↓↓ */
+    --sch-logo-top-desk: 5px;
+    --sch-logo-left-desk: 0px;
+}
+
+.footer-sch-logo{
+    position: relative;
+
+    height: var(--sch-logo-height-mob);
+    width: auto;
+    display: block;
+
+    top: var(--sch-logo-top-mob);
+    left: var(--sch-logo-left-mob);
+}
+
+/* ==========================================================
+   FOOTER SCHOLARSHIP LOGO — DESKTOP OVERRIDE
+========================================================== */
+@media (min-width: 769px){
+
+    .footer-sch-logo{
+        height: var(--sch-logo-height-desk);
+
+        top: var(--sch-logo-top-desk);
+        left: var(--sch-logo-left-desk);
+    }
+
+}
