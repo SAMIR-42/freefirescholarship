@@ -1,0 +1,736 @@
+/* ==========================================================
+   FONT — GFF (same custom font as main site)
+========================================================== */
+@font-face {
+    font-family: "GFF";
+    src: url("./assets/GFF-Latin-Medium.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100svh;
+
+    background-color: #0d0d0f;
+    background-image:
+        radial-gradient(circle at 20% 10%, rgba(255, 170, 0, 0.08), transparent 40%),
+        radial-gradient(circle at 80% 90%, rgba(255, 170, 0, 0.05), transparent 40%);
+
+    font-family: "GFF", sans-serif;
+    color: #fff;
+}
+
+/* ==========================================================
+   APP WRAPPER — centers the active step card on screen
+========================================================== */
+.app-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 32px 20px;
+}
+
+/* ==========================================================
+   STEP VISIBILITY — JS toggles .active on one step at a time
+========================================================== */
+.step {
+    display: none;
+    width: 100%;
+    max-width: 420px;
+
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    animation: stepFadeIn 0.4s ease;
+}
+
+.step.active {
+    display: flex;
+}
+
+@keyframes stepFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================
+   SHARED TEXT STYLES
+========================================================== */
+.step-heading {
+    font-size: clamp(20px, 6vw, 26px);
+    letter-spacing: 1.5px;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 170, 0, 0.35);
+    margin-bottom: 10px;
+}
+
+.step-subheading {
+    font-family: sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 26px;
+    max-width: 340px;
+}
+
+/* ==========================================================
+   FORM (STEP 1 — UID / USERNAME)
+========================================================== */
+.form-group {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px;
+
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 14px;
+
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: rgba(255, 170, 0, 0.6);
+    background: rgba(255, 255, 255, 0.09);
+}
+
+/* ==========================================================
+   BUTTONS
+========================================================== */
+.btn-primary {
+    width: 100%;
+    height: 48px;
+
+    background: #fff;
+    border: none;
+    border-radius: 999px;
+
+    font-family: "GFF", sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #111;
+
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    margin-top: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+}
+
+.btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    height: 46px;
+    padding: 0 28px;
+
+
+    display: inline-flex;       /* ← naya */
+    align-items: center;        /* ← naya */
+    justify-content: center; 
+
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+
+    font-family: "GFF", sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #fff;
+     text-decoration: none;
+
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================================
+   STEP 2 — QUIZ
+========================================================== */
+.quiz-progress {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#quiz-progress-text {
+    display: block;
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 8px;
+}
+
+.quiz-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.quiz-progress-fill {
+    height: 100%;
+    width: 10%;
+    background: linear-gradient(90deg, #ffaa00, #ff6a00);
+    border-radius: 999px;
+    transition: width 0.35s ease;
+}
+
+.quiz-card {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.quiz-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.quiz-question {
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.quiz-option {
+    padding: 12px 8px;
+
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+
+    font-family: sans-serif;
+    font-size: 13px;
+    color: #fff;
+
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.quiz-option:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+}
+
+.quiz-option.selected {
+    border-color: #ffaa00;
+    background: rgba(255, 170, 0, 0.15);
+}
+
+.quiz-option.correct {
+    border-color: #2ecc71;
+    background: rgba(46, 204, 113, 0.18);
+}
+
+.quiz-option.wrong {
+    border-color: #e74c3c;
+    background: rgba(231, 76, 60, 0.18);
+}
+
+/* ==========================================================
+   STEP 3 — SCREENSHOT UPLOAD
+========================================================== */
+.upload-box {
+    position: relative; /* ← naya, cross button ke liye anchor */
+
+    width: 100%;
+    aspect-ratio: 16 / 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+
+    cursor: pointer;
+    overflow: hidden;
+
+    margin-bottom: 20px;
+    transition: border-color 0.2s ease;
+}
+
+.upload-box:hover {
+    border-color: rgba(255, 170, 0, 0.6);
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    color: rgba(255, 255, 255, 0.5);
+    font-family: sans-serif;
+    font-size: 13px;
+}
+
+/* ↓↓ CAMERA ICON — halka pulse animation, "tap karo" wala ishara ↓↓ */
+.upload-placeholder i {
+    font-size: 26px;
+    animation: cameraPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes cameraPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.7; }
+}
+
+/* ↓↓ FIX: position:absolute se poora box cover hota hai,
+   koi gap nahi rahega kisी bhi side pe ↓↓ */
+.upload-preview {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ↓↓ REMOVE / CROSS BUTTON — selected image ke upar right-top pe ↓↓ */
+.remove-upload-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 5;
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.remove-upload-btn[hidden] {
+    display: none;
+}
+
+.remove-upload-btn:hover {
+    background: rgba(231, 76, 60, 0.85);
+    transform: scale(1.08);
+}
+
+/* ==========================================================
+   STEP 4 — FAIL RESULT
+========================================================== */
+.fail-icon {
+    font-size: 48px;
+    color: #e74c3c;
+    margin-bottom: 16px;
+}
+
+/* ==========================================================
+   STEP 5 — CERTIFICATE
+========================================================== */
+.cert-heading {
+    color: #ffd166;
+    text-shadow: 0 0 24px rgba(255, 209, 102, 0.5);
+}
+
+.certificate-wrap {
+    width: 100%;
+    margin-bottom: 20px;
+
+    border-radius: 12px;
+    overflow: hidden;
+
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+
+    animation: certReveal 0.7s ease;
+}
+
+@keyframes certReveal {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+#certificate-canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.cert-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+}
+
+.cert-actions .btn-primary {
+    flex: 1;
+    margin-top: 0;
+}
+
+.btn-share {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    border: none;
+
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+
+    transition: transform 0.2s ease;
+}
+
+.btn-share:hover {
+    transform: scale(1.08);
+}
+
+.btn-whatsapp {
+    background: #25d366;
+}
+
+.btn-insta {
+    background: radial-gradient(circle at 30% 107%, #fdf497, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+/* ==========================================================
+   DESKTOP OVERRIDE
+   Card gets a bit more breathing room + slightly larger text
+   on bigger screens. Structure stays the same as mobile —
+   only sizes/spacing scale up.
+========================================================== */
+@media (min-width: 769px) {
+
+    .app-wrapper {
+        padding: 60px 20px;
+    }
+
+    .step {
+        max-width: 480px;
+    }
+
+    .step-heading {
+        font-size: 30px;
+    }
+
+    .quiz-card {
+        padding: 24px;
+    }
+
+    .btn-primary,
+    .form-group input {
+        height: 52px;
+    }
+
+}
+
+/* ==========================================================
+   TOP-LEFT LOGO (MOBILE — base/default)
+   position: fixed rakha hai taaki scroll pe bhi apni jagah
+   rahe. Size/position dono variables se control hote hain.
+========================================================== */
+:root{
+    /* ↓↓ LOGO POSITION (MOBILE) ↓↓ */
+    --app-logo-top-mob: 16px;
+    --app-logo-left-mob: 16px;
+
+    /* ↓↓ LOGO SIZE (MOBILE) ↓↓ */
+    --app-logo-height-mob: 34px;
+
+    /* ↓↓ LOGO POSITION (DESKTOP) ↓↓ */
+    --app-logo-top-desk: 24px;
+    --app-logo-left-desk: 40px;
+
+    /* ↓↓ LOGO SIZE (DESKTOP) ↓↓ */
+    --app-logo-height-desk: 44px;
+}
+
+.app-logo-wrap{
+    position: fixed;
+    top: var(--app-logo-top-mob);
+    left: var(--app-logo-left-mob);
+    z-index: 50;
+
+    overflow: hidden; /* shine effect isी ke andar clip hota hai */
+    display: inline-block;
+    border-radius: 6px;
+}
+
+.app-logo{
+    height: var(--app-logo-height-mob);
+    width: auto;
+    display: block;
+
+    position: relative;
+}
+
+/* ==========================================================
+   SHINE ANIMATION
+   Ek diagonal light-streak jo pseudo-element se banti hai,
+   logo ke upar se left-to-right guzarti hai. Total cycle
+   10s ka hai — shine sirf shuru ke ~1.2s mein hoti hai,
+   baaki 8.8s kuch nahi hota, phir repeat.
+========================================================== */
+.app-logo-wrap::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+
+    width: 60%;
+    height: 100%;
+
+    background: linear-gradient(
+        115deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0) 35%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(255, 255, 255, 0) 65%,
+        transparent 100%
+    );
+
+    /* ↓↓ SHINE SPEED/GAP ADJUST — animation: <sweep-duration-inside-cycle> ↓↓ */
+    animation: logoShine 10s ease-in-out infinite;
+}
+
+@keyframes logoShine{
+    0%{
+        left: -150%;
+    }
+    12%{
+        /* ↓↓ ISI % SE SHINE KI SPEED CONTROL HOTI HAI ↓↓
+           12% of 10s = 1.2s — shine yahan tak guzar jaati hai */
+        left: 150%;
+    }
+    100%{
+        left: 150%; /* baaki 88% (8.8s) kuch nahi hota — pause */
+    }
+}
+
+/* ==========================================================
+   TOP-LEFT LOGO — DESKTOP OVERRIDE
+========================================================== */
+@media (min-width: 769px){
+
+    .app-logo-wrap{
+        top: var(--app-logo-top-desk);
+        left: var(--app-logo-left-desk);
+    }
+
+    .app-logo{
+        height: var(--app-logo-height-desk);
+    }
+
+}
+
+/* ==========================================================
+   OCR SCAN STATUS TEXT
+========================================================== */
+.ocr-status{
+    font-family: sans-serif;
+    font-size: 12px;
+    color: rgba(255, 170, 0, 0.85);
+    margin-bottom: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.ocr-status[hidden]{
+    display: none;
+}
+
+.ocr-status::before{
+    content: "";
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255, 170, 0, 0.3);
+    border-top-color: #ffaa00;
+    border-radius: 50%;
+    animation: ocrSpin 0.7s linear infinite;
+}
+
+@keyframes ocrSpin{
+    to{ transform: rotate(360deg); }
+}
+
+/* ==========================================================
+   DUPLICATE ENTRY ERROR MESSAGE
+   Shake animation se attention grab karta hai jab duplicate
+   UID/username detect ho jaye.
+========================================================== */
+.form-error{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    margin-top: 14px;
+    padding: 12px 14px;
+
+    background: rgba(231, 76, 60, 0.12);
+    border: 1px solid rgba(231, 76, 60, 0.4);
+    border-radius: 10px;
+
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #ff8a80;
+
+    animation: errorShake 0.4s ease;
+}
+
+.form-error[hidden]{
+    display: none;
+}
+
+.form-error::before{
+    content: "\f06a"; /* Font Awesome exclamation-circle */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+@keyframes errorShake{
+    0%, 100%{ transform: translateX(0); }
+    20%{ transform: translateX(-6px); }
+    40%{ transform: translateX(6px); }
+    60%{ transform: translateX(-4px); }
+    80%{ transform: translateX(4px); }
+}
+
+/* ==========================================================
+   SCAN INSIGHT BOX
+   Screenshot se detect hui info (age/level/likes) ko friendly
+   tarike se dikhata hai — dono result screens (pass/fail) pe
+   ye use hota hai.
+========================================================== */
+.scan-insight{
+    width: 100%;
+    margin-bottom: 20px;
+
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 170, 0, 0.25);
+    border-radius: 12px;
+    padding: 14px 16px;
+
+    text-align: left;
+}
+
+.scan-insight[hidden]{
+    display: none;
+}
+
+.scan-insight p{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-family: sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+
+    margin-bottom: 8px;
+}
+
+.scan-insight p:last-child{
+    margin-bottom: 0;
+}
+
+.scan-insight p i{
+    color: #ffaa00;
+    font-size: 13px;
+    flex-shrink: 0;
+}

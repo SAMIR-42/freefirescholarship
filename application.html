@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Fire Scholar — Application</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/ff-favicon.png">
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="application.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Google Fonts — used for certificate name text (canvas) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+        <!-- face-api.js — real ML-based human face detection, background mein load hoga -->
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+
+</head>
+<body>
+
+    <!-- Top-Left Logo -->
+    <div class="app-logo-wrap">
+        <img src="./assets/FF-LOGO2.PNG" alt="FF Scholar Logo" class="app-logo">
+    </div>
+
+    <main class="app-wrapper">
+
+        <!-- ============================================
+             STEP 1 — UID / USERNAME ENTRY
+        ============================================ -->
+        <section class="step step-uid active" data-step="uid">
+
+            <h1 class="step-heading">VERIFY YOUR PLAYER ID</h1>
+            <p class="step-subheading">Enter your details to begin the scholarship verification</p>
+
+            <div class="form-group">
+                <label for="ff-uid">Free Fire UID</label>
+                <input type="text" id="ff-uid" placeholder="e.g. 123456789" inputmode="numeric" maxlength="12">
+            </div>
+
+            <div class="form-group">
+                <label for="ff-username">In-Game Username</label>
+                <input type="text" id="ff-username" placeholder="e.g. ProGamerX">
+            </div>
+
+            <button class="btn-primary" id="start-quiz-btn">START VERIFICATION</button>
+             <p class="form-error" id="typing-speed-error" hidden>That UID looks randomly entered. Please type your actual Free Fire UID carefully.</p>
+              <p class="form-error" id="duplicate-error" hidden>You've already completed this verification with this UID/Username.</p>
+
+        </section>
+
+        <!-- ============================================
+             STEP 2 — QUIZ
+        ============================================ -->
+        <section class="step step-quiz" data-step="quiz">
+
+            <div class="quiz-progress">
+                <span id="quiz-progress-text">Question 1/10</span>
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="quiz-card">
+                <img src="./assets/quiz-placeholder.webp" alt="Question" class="quiz-image" id="quiz-image">
+                <h2 class="quiz-question" id="quiz-question-text">Which weapon is this?</h2>
+
+                <div class="quiz-options" id="quiz-options">
+                    <!-- Options injected by JS -->
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ============================================
+             STEP 3 — SCREENSHOT UPLOAD
+        ============================================ -->
+        <section class="step step-upload" data-step="upload">
+
+            <h1 class="step-heading">UPLOAD PROFILE SCREENSHOT</h1>
+            <p class="step-subheading">Upload a screenshot of your in-game profile (for verification experience only — stored on your device only)</p>
+
+      <label class="upload-box" id="upload-box">
+                <input type="file" accept="image/*" id="screenshot-input" hidden>
+
+                <img id="upload-preview" class="upload-preview" hidden>
+
+                <button type="button" class="remove-upload-btn" id="remove-upload-btn" hidden>
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="upload-placeholder" id="upload-placeholder">
+                    <i class="fa-solid fa-camera"></i>
+                    <span>Tap to upload screenshot</span>
+                </div>
+            </label>
+
+             <p class="form-error" id="face-reject-error" hidden>This looks like a personal photo. Please upload a screenshot of your in-game profile instead.</p>
+            <p class="ocr-status" id="ocr-status" hidden>Scanning screenshot...</p>
+
+<button class="btn-primary" id="finish-upload-btn" disabled>SUBMIT APPLICATION</button>
+        </section>
+
+        <!-- ============================================
+             STEP 4 — FAIL RESULT
+        ============================================ -->
+        <section class="step step-fail" data-step="fail">
+
+            <i class="fa-solid fa-circle-xmark fail-icon"></i>
+            <h1 class="step-heading">NOT ELIGIBLE</h1>
+            <p class="step-subheading" id="fail-score-text">You scored 5/10. A minimum of 8/10 is required to qualify for the scholarship.</p>
+
+             <div class="scan-insight" id="fail-scan-insight" hidden></div>
+            <a href="index.html" class="btn-secondary" id="retry-btn">GO HOME</a>
+
+        </section>
+
+        <!-- ============================================
+             STEP 5 — CERTIFICATE (PASS RESULT)
+        ============================================ -->
+        <section class="step step-certificate" data-step="certificate">
+
+            <h1 class="step-heading cert-heading">CONGRATULATIONS!</h1>
+            <p class="step-subheading">You've qualified for the Free Fire Scholarship. Confirmation will be sent to your registered FF account/email.</p>
+
+              <div class="scan-insight" id="cert-scan-insight" hidden></div>
+            <div class="certificate-wrap">
+                <canvas id="certificate-canvas"></canvas>
+            </div>
+
+            <div class="cert-actions">
+                <button class="btn-primary" id="download-cert-btn">
+                    <i class="fa-solid fa-download"></i> DOWNLOAD
+                </button>
+                <button class="btn-share btn-whatsapp" id="share-whatsapp-btn">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </button>
+                <button class="btn-share btn-insta" id="share-insta-btn">
+                    <i class="fa-brands fa-instagram"></i>
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="application.js"></script>
+</body>
+</html>
