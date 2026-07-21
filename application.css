@@ -519,18 +519,18 @@ body {
 ========================================================== */
 :root{
     /* ↓↓ LOGO POSITION (MOBILE) ↓↓ */
-    --app-logo-top-mob: 16px;
+    --app-logo-top-mob: 5px;
     --app-logo-left-mob: 16px;
 
     /* ↓↓ LOGO SIZE (MOBILE) ↓↓ */
-    --app-logo-height-mob: 34px;
+    --app-logo-height-mob: 100px;
 
     /* ↓↓ LOGO POSITION (DESKTOP) ↓↓ */
-    --app-logo-top-desk: 24px;
+    --app-logo-top-desk: 0px;
     --app-logo-left-desk: 40px;
 
     /* ↓↓ LOGO SIZE (DESKTOP) ↓↓ */
-    --app-logo-height-desk: 44px;
+    --app-logo-height-desk: 150px;
 }
 
 .app-logo-wrap{
